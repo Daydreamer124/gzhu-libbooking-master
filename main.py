@@ -26,7 +26,8 @@ class GZHU(object):
             'scancode': 'http://libbooking.gzhu.edu.cn/scancode.html#/login?sta=1&sysid=1EW&lab=69&type=1',
             'user_info': 'http://libbooking.gzhu.edu.cn/ic-web/auth/userInfo',
             '101': 'http://libbooking.gzhu.edu.cn/ic-web/reserve?roomIds=100647013&resvDates=20220416&sysKind=8',
-            '103': 'http://libbooking.gzhu.edu.cn/ic-web/reserve?roomIds=100647014&resvDates=20220416&sysKind=8',
+            '511': 'http://libbooking.gzhu.edu.cn/#/ic/seatPredetermine/100586665&resvDates=20220416&sysKind=8',
+            '513': 'http://libbooking.gzhu.edu.cn/#/ic/seatPredetermine/100586669&resvDates=20220416&sysKind=8'
         }
 
     def loginLib(self, select_room):
@@ -101,7 +102,7 @@ class GZHU(object):
                                                             '%Y-%m-%d')
         bt = '{} {}'.format(the_day_after_tomorrow, set_bt)
         et = '{} {}'.format(the_day_after_tomorrow, set_et)
-        print('正在post数据，bt:{bt};et:{et}'.format(bt=bt, et=et))
+        print('正在post数据，座位:{acc_no};bt:{bt};et:{et}'.format(acc_no = acc_no,bt=bt, et=et))
         self.postReserve(acc_no=acc_no,
                          begin_time=bt,
                          end_time=et,
@@ -118,6 +119,7 @@ def start():
             dev_id = ''
             for data in room_datas['data']:
                 if data["devName"] == task['seat_id']:
+                    print("预约位置为: "+data["devName"])
                     dev_id = data["devId"]
                     break
             g.reserve(acc_no=accNo,
